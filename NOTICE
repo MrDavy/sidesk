@@ -1,0 +1,36 @@
+SiDesk — 基于 RustDesk 的定制构建
+=================================
+
+本仓库是 RustDesk 的二次开发分支，不是上游项目。
+
+上游
+----
+https://github.com/rustdesk/rustdesk
+基线提交：04360797a（v1.5.0-88-g04360797a，2026-10-28）
+
+本分支的修改
+------------
+1. 品牌资产替换（图标、锁版），由 scripts/make-logo.py 生成
+2. 构建环境适配（vcpkg 源镜像、pubspec.lock），仅为本机网络与旧工具链
+3. 被控端焦点行为调整（flutter/lib/models/server_model.dart）
+
+完整清单与同步流程见伞形仓中的 docs/UPSTREAM.md，逐条改动见
+`git log upstream/master..HEAD`。
+
+许可
+----
+上游代码以 GNU Affero General Public License v3.0 授权，全文见随附的
+LICENCE 文件。本分支同样以 AGPL-3.0 授权。
+
+分发本程序的二进制时，你必须
+  * 同时提供完整的对应源码，包含本分支的全部修改；
+  * 保留 LICENCE 与本 NOTICE；
+  * 标明这是修改过的版本（本文件即为此目的）。
+
+AGPL 第 13 条还要求：如果本程序通过网络对外提供服务，使用者有权获得
+其完整源码。
+
+商标
+----
+"RustDesk" 是上游项目的名称与商标。本分支以 SiDesk 名义发布，仅用于
+标识自身的定制构建，与上游项目无隶属、无背书关系。

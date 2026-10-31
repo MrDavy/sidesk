@@ -1,1 +1,9 @@
 * text=auto
+
+# Brand assets are regenerated, never hand-merged: on a conflict take one side
+# wholesale instead of letting git splice two binary variants together.
+*.ico   binary
+*.icns  binary
+*.png   binary
+*.webp  binary
+*.pdf   binary
