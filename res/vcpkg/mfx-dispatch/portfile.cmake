@@ -1,8 +1,8 @@
 vcpkg_download_distfile(
     MISSING_CSTDINT_IMPORT_PATCH
-    URLS https://github.com/lu-zero/mfx_dispatch/commit/d6241243f85a0d947bdfe813006686a930edef24.patch?full_index=1
+    URLS https://github.com/lu-zero/mfx_dispatch/commit/d6241243f85a0d947bdfe813006686a930edef24.patch
     FILENAME fix-missing-cstdint-import-d6241243f85a0d947bdfe813006686a930edef24.patch
-    SHA512 5d2ffc4ec2ba0e5859d01d2e072f75436ebc3e62e0f6580b5bb8b9f82fe588e7558a46a1fdfa0297a782c0eeb8f50322258d0dd9e41d927cc9be496727b61e44
+    SHA512 a9c4e7029898f00142e0fe17c072cdef2f600d5e6d50d13387307022ec9c8c424934c8e9502039e33cd335b496b7bfbc151e4e9b8222af7b0d895902eaa02b90
 )
 
 vcpkg_from_github(
