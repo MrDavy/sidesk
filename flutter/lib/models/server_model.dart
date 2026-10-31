@@ -128,6 +128,11 @@ class ServerModel with ChangeNotifier {
 
   List<Client> get clients => _clients;
 
+  /// True while a peer is still waiting for the local user's approval. Such a
+  /// connection has to surface the connection manager; one that is already
+  /// authorized must not take the foreground away from the local user.
+  bool get _hasPendingApproval => _clients.any((client) => !client.authorized);
+
   final controller = ScrollController();
 
   WeakReference<FFI> parent;
@@ -172,7 +177,7 @@ class ServerModel with ChangeNotifier {
             }
           } else {
             _zeroClientLengthCounter = 0;
-            if (!hideCm) showCmWindow();
+            if (!hideCm && _hasPendingApproval) showCmWindow();
           }
         }
       }
@@ -522,7 +527,7 @@ class ServerModel with ChangeNotifier {
     if (desktopType == DesktopType.cm) {
       if (_clients.isEmpty) {
         hideCmWindow();
-      } else if (!hideCm) {
+      } else if (!hideCm && _hasPendingApproval) {
         showCmWindow();
       }
     }
@@ -566,7 +571,7 @@ class ServerModel with ChangeNotifier {
         _clients.removeAt(index_disconnected);
         tabController.remove(index_disconnected);
       }
-      if (desktopType == DesktopType.cm && !hideCm) {
+      if (desktopType == DesktopType.cm && !hideCm && _hasPendingApproval) {
         showCmWindow();
       }
       scrollToBottom();
@@ -585,9 +590,11 @@ class ServerModel with ChangeNotifier {
         closable: false,
         onTap: () {},
         page: desktop.buildConnectionCard(client)));
-    Future.delayed(Duration.zero, () async {
-      if (!hideCm) windowOnTop(null);
-    });
+    if (!client.authorized) {
+      Future.delayed(Duration.zero, () async {
+        if (!hideCm) windowOnTop(null);
+      });
+    }
     // Only do the hidden task when on Desktop.
     if (client.authorized && isDesktop) {
       cmHiddenTimer = Timer(const Duration(seconds: 3), () {
